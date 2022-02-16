@@ -1,0 +1,78 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title">Evaluaciones</ui:define>
+	<ui:define name="content">
+
+		
+		<!-- CONTENIDO DE LA PAGINA -->
+		<div class="d-sm-flex justify-content-between align-items-center mb-4">
+			<h3 class="text-dark mb-0">Evaluaciones</h3>
+		</div>
+		<c:if
+			test="#{controlAutorizacion.usuario.tipoUsuario == 'PROFESOR' || controlAutorizacion.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+			<h:button outcome="evaluar.xhtml" value="Evaluar"
+				styleClass="btn btn-primary btn-sm" />
+		</c:if>
+		<h:form>
+			<p:dataTable var="evaluacion"
+				value="#{dtEvaluacionView.evaluaciones}" rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+				rowsPerPageTemplate="5,10,15,30,50,100">
+
+				<p:column headerText="Nombre del alumno">
+					<h:outputText value="#{evaluacion.alumno_evaluado.nombre}"
+						height="50" width="50" />
+				</p:column>
+
+
+				<p:column headerText="Nombre actividad">
+					<h:outputText value="#{evaluacion.actividad.nombre}" />
+				</p:column>
+
+				<p:column headerText="Nombre del profesor">
+					<h:outputText value="#{evaluacion.profesor_evaluador.nombre}" />
+				</p:column>
+
+				<p:column headerText="Nota">
+					<h:outputText value="#{evaluacion.nota}" />
+				</p:column>
+
+				<c:if
+					test="#{controlAutorizacion.usuario.tipoUsuario == 'PROFESOR'  || controlAutorizacion.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+					<p:column headerText="">
+
+						<h:button outcome="verEvaluacion.xhtml?id=#{evaluacion.id}"
+							value="Ver" styleClass="btn btn-primary btn-sm" />
+						<h:button outcome="editEvaluacion.xhtml?id=#{evaluacion.id}"
+							value="Editar" styleClass="btn btn-success btn-sm" />
+						<h:button outcome="deleteEvaluacion.xhtml?id=#{evaluacion.id}"
+							value="Borrar" styleClass="btn btn-danger btn-sm" />
+					</p:column>
+				</c:if>
+
+
+
+
+				<f:facet name="paginatorTopLeft">
+					<p:commandButton type="button" icon="pi pi-refresh" />
+				</f:facet>
+
+				<f:facet name="paginatorBottomRight">
+					<p:commandButton type="button" icon="pi pi-cloud-upload" />
+				</f:facet>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+

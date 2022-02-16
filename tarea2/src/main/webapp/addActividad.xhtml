@@ -1,0 +1,91 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<ui:define name="title">Añadir actividad</ui:define>
+	<ui:define name="content">
+
+<c:choose>
+<c:when test="#{controlAutorizacion.usuario.tipoUsuario=='ADMINISTRADOR' or controlAutorizacion.usuario.tipoUsuario=='ORGANIZACION'}">
+
+
+		<!-- CONTENIDO DE LA PAGINA -->
+		<div class="d-sm-flex justify-content-between align-items-center mb-4">
+			<h3 class="text-dark mb-0">Añadir actividad</h3>
+		</div>
+
+		
+		<h:form id="formulario_actividad">	
+			<h:messages></h:messages>
+			
+			<p class="text-dark mb-0">ID:</p>
+			<h:inputText id="id" value="#{abean.actividad.idActividad}" required="true"/> 
+			
+			<p class="text-dark mb-0">Nombre de la actividad:</p>
+			<h:inputText id="nombre" value="#{abean.actividad.nombre}" required="true"/>
+
+			<p class="text-dark mb-0">Ubicación:</p>
+			<h:inputText id="ubicacion" value="#{abean.actividad.ubicacion}" size="40" required="true" />
+
+			<p class="text-dark mb-0">Fecha de inicio:</p>
+  			<p:datePicker id="popup" value="#{abean.actividad.fechaInicio}" required="true" />
+ 
+			<!-- <p class="text-dark mb-0">Fecha de finalización:</p>
+			<input type="date" id="fin" value="#{abean.actividad.fechaFin}" min = "inicio" required = "true" />
+			 -->
+			<p class="text-dark mb-0">Fecha de finalización:</p>
+			<p:datePicker id="popup2" value="#{abean.actividad.fechaFin}" required="true"/>
+ 
+			<p class="text-dark mb-0">Número de personas requeridas:</p>
+			<h:inputText id="numPersonasRequeridas" min ="5" value="#{abean.actividad.numPersonasRequeridas}" required="true"/>
+
+			<p class="text-dark mb-0">Número de horas requeridas:</p>
+			<p:spinner id="numHorasRequeridas" min ="1" value="#{abean.actividad.numHorasRequeridas}" suffix=" h" max ="100"/>
+			
+			<p class="text-dark mb-0">Imagen:</p>
+			<p:fileUpload id="imagen" value="#{abean.actividad.imagen}" mode="simple" skinSimple="true" label="Elegir" />
+
+			<p class="text-dark mb-0">Descripción:</p>
+			<p:inputTextarea rows="5" cols="40" counter="display" maxlength="5000" counterTemplate="{0} caracteres restantes." autoResize="true" value="#{abean.actividad.descripcion}" required="true" />
+			<br/>
+   			<h:outputText id="display" />
+    
+			<p class="text-dark mb-0">Tipo de actividad:</p>
+			<h:selectOneMenu required="true" value="#{abean.actividad.tipo}">
+				<f:selectItem itemValue="aprendizaje-servicio" itemLabel="aprendizaje-servicio"/>
+				<f:selectItem itemValue="voluntariado" itemLabel="voluntariado"/>
+			</h:selectOneMenu>
+			<p class="text-dark mb-0">Proyecto al que pertenece:</p>
+			<h:selectOneMenu required="true" value="#{abean.proyectoId}">
+				<f:selectItems value="#{abean.proyectos}" var="pro" itemLabel="#{pro.nombre}" itemValue="#{pro.idProyecto}"></f:selectItems>
+			</h:selectOneMenu>
+			<c:if test="#{controlAutorizacion.usuario.tipoUsuario=='ADMINISTRADOR'}">
+				<p class="text-dark mb-0">Validación de actividad:</p>
+				<h:selectOneMenu required="true" value="#{abean.actividad.validacion}">
+					<f:selectItem itemValue="true" itemLabel="Aceptada"/>
+					<f:selectItem itemValue="false" itemLabel="Rechazada"/>
+				</h:selectOneMenu>
+			</c:if>
+			
+			<br/>
+			<br/>
+			<hr/>
+			<h:commandButton value="Guardar" action="#{abean.doCrearActividad}" styleClass="btn btn-primary btn-sm" />
+		</h:form>
+		<br/>
+
+</c:when>
+<c:otherwise>
+		<h1>ERROR DE AUTORIZACIÓN</h1>
+		<p>No tiene permiso para acceder a esta página</p>
+</c:otherwise>
+</c:choose>
+
+
+	</ui:define>
+</ui:composition>
+
+

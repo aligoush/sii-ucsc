@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+                                
+    
+    
+    
+    
+    
+    
+    <wb-module deploy-name="tarea3-ear-1.0-SNAPSHOT">
+                                                                
+        
+        
+        
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+                                                                
+        
+        
+        
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="tarea3-ejb-1.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/tarea3-ejb/tarea3-ejb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="tarea3-war-1.0-SNAPSHOT.war" deploy-path="/" handle="module:/resource/tarea3-war/tarea3-war">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="tarea3-jpa-1.0-SNAPSHOT.jar" deploy-path="/lib" handle="module:/resource/tarea3-jpa/tarea3-jpa">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                                                            
+    
+    
+    
+    
+    
+    
+    </wb-module>
+                            
+
+
+
+
+
+
+</project-modules>

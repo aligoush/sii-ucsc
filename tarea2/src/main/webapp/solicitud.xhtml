@@ -1,0 +1,82 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+        <ui:define name="title">Solicitudes</ui:define>
+        <ui:define name="content">
+
+
+            <h3 class="text-dark mb-4">Solicitudes de actividades</h3>
+            <c:if test="#{controlAutorizacion.usuario.tipoUsuario eq 'ORGANIZACION'}">
+            	<h4>Este usuario no tiene permiso para visualizar esta vista</h4>
+            </c:if>
+            <c:if test="#{controlAutorizacion.usuario.tipoUsuario ne 'ORGANIZACION'}">
+                     <center>
+
+            <div class=" card shadow card-shadow">
+                <div class="text-dark card-body col-md-6" >
+                    <h:form>
+                        <h:inputText class="form-control" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar concepto..." >
+                        </h:inputText>
+                    </h:form>
+                </div>
+                <div class="table-responsive table mt-2 text-center">
+                    <h:dataTable class="table dataTable my-0" id="table" value="#{beanSolicitud.getSolicitudes()}" var="u" styleClass="table table-striped table-responsive-md btn-table dataTable my-0">
+                    <h:column>
+                        <f:facet name="header">Id Solicitud</f:facet>
+                        #{u.idSolicitud}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Fecha Solicitud</f:facet>
+                        #{u.fecha}
+                    </h:column>
+                    <c:if test="#{(controlAutorizacion.usuario.tipoUsuario eq 'PROFESOR') or (controlAutorizacion.usuario.tipoUsuario eq 'ADMINSTRADOR')}">
+                      <h:column>
+                          <f:facet name="header">Nombre del alumno</f:facet>
+                          #{u.usuario.nombre} #{u.usuario.apellido1} #{u.usuario.apellido2}
+                      </h:column>
+                    </c:if>
+                    <c:if test="#{(controlAutorizacion.usuario.tipoUsuario eq'NORMAL') or (controlAutorizacion.usuario.tipoUsuario eq 'ADMINISTRADOR')}">
+                      <h:column>
+                          <f:facet name="header">Profesores</f:facet>
+                          <c:forEach var="item" items="#{u.actividad.coordinadores}">
+                                <h:commandButton value="#{item}"/>
+                           </c:forEach>
+
+                      </h:column>
+                    </c:if>
+                    <h:column>
+                        <f:facet name="header">Actividad</f:facet>
+                        #{u.actividad.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Estado</f:facet>
+                        <c:if test="#{(controlAutorizacion.usuario.tipoUsuario eq 'PROFESOR') or (controlAutorizacion.usuario.tipoUsuario eq 'ADMINSTRADOR')}">
+                          <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            #{u.estadoSolicitud}
+                            </button>
+                            <h:form>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <h:commandButton class="dropdown-item" value="Aceptar" action="#{beanSolicitud.setSolicitud(u.idSolicitud,1)}"/>
+                                  <h:commandButton class="dropdown-item" value="Denegar" action="#{beanSolicitud.setSolicitud(u.idSolicitud,0)}"/>
+                                </div>
+                            </h:form>
+                          </div>
+                        </c:if>
+
+                        <c:if test="#{controlAutorizacion.usuario.tipoUsuario eq'NORMAL'}">
+                          #{u.estadoSolicitud}
+                        </c:if>
+                    </h:column>
+                </h:dataTable>
+                </div>
+            </div>
+        </center>
+        </c:if>
+        </ui:define>
+</ui:composition>

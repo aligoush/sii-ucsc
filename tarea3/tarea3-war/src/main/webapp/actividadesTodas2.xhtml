@@ -1,0 +1,98 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<ui:define name="title">Todas las actividades</ui:define>
+	<ui:define name="content">
+
+<c:choose>
+<c:when test="#{controlAutorizacion.usuario.tipoUsuario=='PROFESOR'}">
+
+
+		<!-- CONTENIDO DE LA PAGINA -->
+		<div class="d-sm-flex justify-content-between align-items-center mb-4">
+			<h3 class="text-dark mb-0"> Actividades</h3>
+		</div>
+		
+		
+		<br></br><br></br>
+		
+		<h:form>
+			<p:dataTable var="actividad" value="#{abean.actividadesParaTutor}" rows="10" 
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+				rowsPerPageTemplate="5,10,15,30,50,100">
+				
+				<p:column headerText="Imagen">
+					<h:graphicImage library="images" name="#{actividad.imagen}" height="50" width="50"/>
+				</p:column>
+				
+				<p:column headerText="ID">
+					<h:outputText value="#{actividad.idActividad}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{actividad.nombre}" />
+				</p:column>
+				
+				<p:column headerText="Horas requeridas">
+					<h:outputText value="#{actividad.numHorasRequeridas}" />
+				</p:column>
+				
+				<p:column headerText="Inicio">
+					<h:outputText value="#{actividad.fechaInicioString}" />
+				</p:column>
+				
+				<p:column headerText="Fin">
+					<h:outputText value="#{actividad.fechaFinString}" />
+				</p:column>
+				
+				<p:column headerText="Ubicación">
+					<h:outputText value="#{actividad.ubicacion}" />
+				</p:column>
+				
+				<p:column headerText="Tipo">
+					<h:outputText value="#{actividad.tipo}" />
+				</p:column>
+				
+				<p:column headerText="">
+				
+					<h:button outcome="actividad.xhtml?idActividad=#{actividad.idActividad}" value="Ver" styleClass="btn btn-primary btn-sm" />
+					<h:commandButton action="#{abean.doTutorizarActividad}" 
+						value="Tutorizar" styleClass="btn btn-primary btn-sm"
+						style="margin-left: 10px">
+						<f:setPropertyActionListener target="#{abean.usuario}"
+							value="#{controlAutorizacion.usuario}" />
+							<f:setPropertyActionListener value="#{actividad}"
+							target="#{abean.actividad}"></f:setPropertyActionListener>
+					</h:commandButton>
+				</p:column>
+
+
+				<f:facet name="paginatorTopLeft">
+					<p:commandButton type="button" icon="pi pi-refresh" />
+				</f:facet>
+
+				<f:facet name="paginatorBottomRight">
+					<p:commandButton type="button" icon="pi pi-cloud-upload" />
+				</f:facet>
+
+			</p:dataTable>
+		</h:form>
+
+
+</c:when>
+<c:otherwise>
+		<h1>ERROR DE AUTORIZACIÓN</h1>
+		<p>No tiene permiso para acceder a esta página</p>
+</c:otherwise>
+</c:choose>
+
+
+	</ui:define>
+</ui:composition>
+

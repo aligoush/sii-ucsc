@@ -1,0 +1,148 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+     <f:metadata>
+		    <f:viewParam name="idActividad" value="#{abean.idActividad}" required="true"/>
+		    <f:event type="preRenderView" listener="#{abean.postLoad}" />
+	</f:metadata>    
+    
+    
+    <ui:define name="title">Actividad</ui:define>
+    <ui:define name="content">
+    	   <div class="container-fluid">
+                <div class="row mb-3">
+                    <div class="col-lg-4">
+                        <div class="card mb-3">
+                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160"/></div>
+                        </div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="text-primary font-weight-bold m-0">Información General</h6>
+                            </div>
+                            <div class="card-body"><label for="city"><strong>ID: </strong></label>
+                            	 <h:outputLabel value = "#{abean.actividad.idActividad}" style="margin-left: 20px"/> 
+                            	 <br/>
+                           		 <label for="city"><strong>Nº de personas requeridas: </strong></label>
+     							 <h:outputLabel value = "#{abean.actividad.numPersonasRequeridas}" style="margin-left: 20px"/>
+     							 <br/>
+     							 <label for="city"><strong>Nº de horas:</strong></label>
+     							 <h:outputLabel value = "#{abean.actividad.numHorasRequeridas}" style="margin-left: 20px"/>
+     							 <br/>
+     							 <label for="city"><strong>Inicio:</strong></label>
+     							 <h:outputLabel value = "#{abean.actividad.fechaInicioString}" style="margin-left: 20px"/>
+     							 <br/>
+     							 <label for="city"><strong>Fin:</strong></label>
+     							 <h:outputLabel value = "#{abean.actividad.fechaFinString}" style="margin-left: 20px"/>
+     							 <br/>
+     							 <label for="city"><strong>Tipo de actividad:</strong></label>
+     							 <h:outputLabel value = "#{abean.actividad.tipo}" style="margin-left: 20px"/>
+     							 <br/>		
+     							 <label for="city"><strong>Ubicación:</strong></label>
+     							 <h:outputLabel value = "#{abean.actividad.ubicacion}" style="margin-left: 20px"/>
+     							 <br/>
+     							 <label for="city"><strong>Profesor que tutoriza:</strong></label>
+     							 <h:outputLabel value = "#{abean.actividad.coordinadores}"/>
+     							 <br/> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row mb-3 d-none">
+                            <div class="col">
+                                <div class="card text-white bg-primary shadow">
+                                    <div class="card-body">
+                                        <div class="row mb-2">
+                                            <div class="col">
+                                                <p class="m-0">Peformance</p>
+                                                <p class="m-0"><strong>65.2%</strong></p>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                        </div>
+                                        <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>5% since last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card text-white bg-success shadow">
+                                    <div class="card-body">
+                                        <div class="row mb-2">
+                                            <div class="col">
+                                                <p class="m-0">Peformance</p>
+                                                <p class="m-0"><strong>65.2%</strong></p>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                        </div>
+                                        <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>5% since last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card shadow mb-3">
+                                  <div class="card-header py-3">
+                                  		<h:outputText value="#{abean.actividad.nombre}" style="font-weight: bold m-0"/>	   
+                                  </div>
+                               	  
+	                                    <div class="card-body">
+	                                        <h:outputText value="#{abean.actividad.descripcion}" />
+	                                    </div>
+                                
+  								<h:panelGroup rendered="true">
+  								
+                            		<div class="card-header py-3">
+                                		<h6 class="text-primary font-weight-bold m-0">Valoraciones</h6>
+                           		 	</div>
+                           		 	<div class="card-body">
+                           		 
+                                	<h:form> 
+									    <p:dataScroller value="#{abean.actividad.valoraciones}" var="valoracion" chunkSize="10">
+		        				
+									        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
+									            <p:outputPanel>
+									                
+									                    <div class="col">
+									                     <div class="form-group" style="margin-top:22px">
+									                    	  <div class="form-group"><label ><strong>Usuario: </strong></label>
+									                    	    <h:outputText  style="margin-left:5px" value="#{valoracion.usuario.nombre}"  />
+									                  			<h:outputText style="margin-left:5px" value="#{valoracion.usuario.apellido1}" />
+									                  		  </div>
+									                 	      <div class="form-group"><label ><strong>Puntuación: </strong></label>
+									                  	 			<h:outputText style="margin-left:5px" value="#{valoracion.valoracionNum}"/>
+									                   		  </div>
+									                   		  <div class="form-group"><label ><strong>Comentario: </strong></label>
+									                   		  		<h:outputText  style="margin-left:5px" value="#{valoracion.comentario}" />
+									                   		  </div>
+									                    </div>  
+									                   
+									                 </div> 
+									            </p:outputPanel>
+									            
+									             
+									        </h:panelGrid>
+									    </p:dataScroller>
+									</h:form>
+									</div>
+                 			   </h:panelGroup>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow mb-5"></div>
+            </div>
+    	</div>
+    </ui:define>
+</ui:composition>
+
+
+        
+        
+        
+        
+       

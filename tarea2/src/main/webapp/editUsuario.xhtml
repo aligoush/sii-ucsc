@@ -1,0 +1,121 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<ui:define name="title">Editar usuario</ui:define>
+	<ui:define name="content">
+
+<c:choose>
+<c:when test="#{controlAutorizacion.usuario.tipoUsuario=='ADMINISTRADOR'}">
+
+
+
+		<!-- CONTENIDO DE LA PAGINA -->
+		<div class="d-sm-flex justify-content-between align-items-center mb-4">
+			<h3 class="text-dark mb-0">Editar usuario</h3>
+		</div>
+		
+		<f:metadata>
+		    <f:viewParam name="id" value="#{usuarioController.id}" required="true">
+<!-- 		        <f:validateLongRange minimum="10" maximum="20" /> -->
+		    </f:viewParam>
+		    <f:event type="preRenderView" listener="#{usuarioController.postLoad}" />
+		</f:metadata>
+		
+<!-- 		<c:choose> -->
+<!--             <c:when test="#{usuarioController.usuario.dni=='-1'}"> -->
+<!--                 <h1>Usuario administrado</h1> -->
+<!--             </c:when> -->
+<!--             <c:otherwise> -->
+<!--                 <p>ERROR: El usuario no existe</p> -->
+<!--             </c:otherwise> -->
+<!--         </c:choose> -->
+		
+		<h:form id="formulario">	
+			<h:messages></h:messages>
+			
+			<p class="text-dark mb-0">DNI:</p>
+			<h:inputText id="dni" value="#{usuarioController.usuario.dni}" required="true"/>
+			
+			<p class="text-dark mb-0">Nombre:</p>
+			<h:inputText id="nombre" value="#{usuarioController.usuario.nombre}" required="true"/>
+
+			<p class="text-dark mb-0">Primer apellido:</p>
+			<h:inputText id="apellido1" value="#{usuarioController.usuario.apellido1}" required="true" />
+
+			<p class="text-dark mb-0">Segundo apellido:</p>
+			<h:inputText id="apellido2" value="#{usuarioController.usuario.apellido2}" />
+
+			<p class="text-dark mb-0">E-mail:</p>
+			<h:inputText id="email" value="#{usuarioController.usuario.email}" size="40" required="true" >
+				<f:validateRegex pattern="[0-9a-zA-Z._-]+@[0-9a-zA-Z._-]+(\.[0-9a-zA-Z._-]+)+"></f:validateRegex>
+			</h:inputText>
+
+			<p class="text-dark mb-0">Dirección:</p>
+			<h:inputText id="direccion" value="#{usuarioController.usuario.direccion}" size="40" required="true" />
+
+			<p class="text-dark mb-0">Teléfono:</p>
+			<h:inputText id="telefono" value="#{usuarioController.usuario.telefono}" required="true" />
+
+			<p class="text-dark mb-0">Foto de perfil:</p>
+			<p:fileUpload id="imagen" value="#{usuarioController.usuario.imagen}" mode="simple" skinSimple="true" label="Elegir" />
+
+
+			
+			<p class="text-dark mb-0">Disponibilidad horaria:</p>
+			<h:selectOneRadio id="disponibilidad" value="#{usuarioController.usuario.disponibilidad}">
+				<f:selectItem itemLabel="Mañana" itemValue="M" />
+				<f:selectItem itemLabel="Tarde" itemValue="T" />
+				<f:selectItem itemLabel="Mañana y tarde" itemValue="MT"/>
+			</h:selectOneRadio>		
+			
+			<p class="text-dark mb-0">Descripción personal:</p>
+			<p:inputTextarea rows="5" cols="40" counter="display" maxlength="500" counterTemplate="{0} caracteres restantes." autoResize="true" value="#{usuarioController.usuario.descripcion}" />
+			<br/>
+   			<h:outputText id="display" />
+    
+			<p class="text-dark mb-0">Tipo de usuario:</p>
+			<h:selectOneMenu required="true" value="#{usuarioController.usuario.tipoUsuario}">
+				<f:selectItem itemValue="NORMAL" itemLabel="Normal"/>
+				<f:selectItem itemValue="PROFESOR" itemLabel="Profesor"/>
+				<f:selectItem itemValue="ORGANIZACION" itemLabel="Organización"/>
+				<f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
+			</h:selectOneMenu>
+			
+			<br/><br/>
+			<h:selectBooleanCheckbox id="notificacionesCorreo" value="#{usuarioController.usuario.notificacionesCorreo}"></h:selectBooleanCheckbox>
+			<label for="notificacionesCorreo">Enviar notificaciones al correo electrónico</label>
+			
+			<hr/>
+			<h4>Cambiar contraseña (dejar en blanco para no cambiarla):</h4>
+			<p class="text-dark mb-0">Nueva contraseña:</p>
+			<h:inputSecret id="contrasena1" value="#{usuarioController.usuario.contrasena}" required="false"/>
+			
+			<p class="text-dark mb-0">Repetir nueva contraseña:</p>
+			<h:inputSecret id="contrasena2" value="#{usuarioController.validacionContrasena}" required="false"/>
+			
+			<br/>
+			<br/>
+			<hr/>
+			<h:commandButton value="Aceptar" action="#{usuarioController.doCrearUsuario}" styleClass="btn btn-primary" />
+			<h:button value="Cancelar" outcome="usuarios.xhtml" styleClass="btn btn-danger" />
+			
+		</h:form>
+		<br/>
+		
+		
+</c:when>
+<c:otherwise>
+		<h3 class="text-dark mb-4">ERROR DE AUTORIZACIÓN</h3>
+		<p>No tiene permiso para acceder a esta página</p>
+</c:otherwise>
+</c:choose>
+
+
+	</ui:define>
+</ui:composition>
+
+

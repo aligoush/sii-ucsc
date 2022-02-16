@@ -1,0 +1,123 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+
+	<ui:define name="title">Evaluar</ui:define>
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="id" value="#{dtEvaluacionView.idRecogidaAct}"
+				required="false">
+			</f:viewParam>
+			<f:event type="preRenderView"
+				listener="#{dtEvaluacionView.postLoadEvaluar}" />
+		</f:metadata>
+
+		<c:choose>
+			<c:when
+				test="#{controlAutorizacion.usuario.tipoUsuario=='ADMINISTRADOR' or controlAutorizacion.usuario.tipoUsuario=='PROFESOR'}">
+
+
+				<!-- CONTENIDO DE LA PAGINA -->
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<h:panelGroup
+								rendered="#{dtEvaluacionView.idRecogidaAct == null}">
+								<h:form id="formularioAsig">
+									<h:messages></h:messages>
+									<div class="card">
+										<div class="card-body">
+
+											<h4 class="card-title">Elegir Actividad</h4>
+											<div class="form-group">
+
+												<h:selectOneMenu id="act"
+													value="#{dtEvaluacionView.idRecogidaAct}">
+													<f:selectItems value="#{dtEvaluacionView.actividades}"
+														id="acto" var="ac" itemValue="#{ac.idActividad}"
+														itemLabel="#{ac.nombre}" />
+												</h:selectOneMenu>
+
+											</div>
+											<div class="form-group">
+												<h:commandButton value="Aceptar" id="AsigBtn"
+													action="#{dtEvaluacionView.doSetAsig}"
+													styleClass="btn btn-primary" />
+											</div>
+
+
+										</div>
+									</div>
+								</h:form>
+							</h:panelGroup>
+							<h:panelGroup
+								rendered="#{dtEvaluacionView.idRecogidaAct != null}">
+
+								<h3 class="card-title">Actividad:
+								<h:outputText value="#{dtEvaluacionView.idRecogidaAct}"
+									styleClass="card-body"></h:outputText>
+									</h3>
+							</h:panelGroup>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<h:form id="formularioEval">
+							<h:messages></h:messages>
+							<div class="col-md-6">
+								<div class="form-group">
+									<h4 class="form-text">Elegir alumno</h4>
+
+									<h:selectOneMenu id="alum"
+										value="#{dtEvaluacionView.userEvaluado}" required="true"
+										converter="javax.faces.Long" styleClass="#{(dtEvaluacionView.idRecogidaAct==null)? 'disabled':''}">
+
+										<f:selectItems value="#{dtEvaluacionView.alumnos}" id="alu"
+											var="alumno" itemValue="#{alumno.id}"
+											itemLabel="#{alumno.nombre}" />
+									</h:selectOneMenu>
+
+								</div>
+							</div>
+							<div class="col-md-6">
+
+
+								<div class="form-group">
+									<h4 class="form-text">Nota:</h4>
+
+									<h:inputText id="nota" value="#{dtEvaluacionView.nota}"
+										required="true" styleClass="#{(dtEvaluacionView.idRecogidaAct==null)? 'disabled':''}"/>
+
+									<div class="form-group">
+										<h:commandButton id="EvalBtn" value="Crear"
+											action="#{dtEvaluacionView.doCrearEval}"
+											styleClass="btn btn-primary" disabled="#{dtEvaluacionView.idRecogidaAct==null}"/>
+
+									</div>
+								</div>
+
+							</div>
+						</h:form>
+					</div>
+				</div>
+
+			</c:when>
+			<c:otherwise>
+				<h1>ERROR DE AUTORIZACIÓN</h1>
+				<p>No tiene permiso para acceder a esta página</p>
+			</c:otherwise>
+		</c:choose>
+
+	</ui:define>
+</ui:composition>
+
+

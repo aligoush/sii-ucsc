@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="tarea3-EntidadesPU" transaction-type="JTA">
+    <jta-data-source>java:jboss/datasources/sii</jta-data-source>
+    <class>es.uma.informatica.sii.tarea3.entidades.Actividad</class>
+    <class>es.uma.informatica.sii.tarea3.entidades.Evaluacion</class>
+    <class>es.uma.informatica.sii.tarea3.entidades.Matriculacion</class>
+    <class>es.uma.informatica.sii.tarea3.entidades.Notificacion</class>
+    <class>es.uma.informatica.sii.tarea3.entidades.Proyecto</class>
+    <class>es.uma.informatica.sii.tarea3.entidades.Solicitud</class>
+    <class>es.uma.informatica.sii.tarea3.entidades.Titulacion</class>
+    <class>es.uma.informatica.sii.tarea3.entidades.Usuario</class>
+    <class>es.uma.informatica.sii.tarea3.entidades.Valoracion</class>
+    <properties>
+    	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>

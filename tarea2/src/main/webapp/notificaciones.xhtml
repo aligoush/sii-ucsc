@@ -1,0 +1,64 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	
+	<ui:define name="title">Notificacion</ui:define>
+	<ui:define name="content">
+
+		<!-- CONTENIDO DE LA PAGINA -->
+		<div class="d-sm-flex justify-content-between align-items-center mb-4">
+			<h3 class="text-dark mb-0">Notificaciones</h3>
+		</div>
+		
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{notificacionController.postLoad('controlAutorizacion.usuario.id')}" />
+		</f:metadata>
+		
+		<br></br><br></br>
+		
+		<h:form> 
+			<p:dataTable var="notificacion" value="#{notificacionController.notificaciones}" rows="10"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} notificaciones"
+				rowsPerPageTemplate="5,10,15,30,50,100">
+				
+				
+				<!-- INTERIOR TABLA -->
+					<p:column headerText="Titulo" style="width:322px;">
+						<h:outputText value="#{notificacion.titulo}" />
+					</p:column>
+				
+			        <p:column headerText="Descripcion">
+						<h:outputText value="#{notificacion.descripcion}" />
+					</p:column>
+				
+		
+				
+				<p:column headerText="" style="width:152px;">
+						<h:commandButton value="Eliminar" action="#{notificacionController.doEliminarNotificacion('notificacion.idNotificacion')}" styleClass="btn btn-primary" style="maRgin-left:18px;"/>
+				</p:column>
+
+
+				<f:facet name="paginatorTopLeft">
+				
+				<!-- DUDA, TENGO ACTUALIZAR HECHO, COMO METER??? -->
+				
+					<p:commandButton type="button" icon="pi pi-refresh" />
+				</f:facet>
+
+				<f:facet name="paginatorBottomRight">
+					<p:commandButton type="button" icon="pi pi-cloud-upload" />
+				</f:facet>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+
+

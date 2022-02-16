@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC
+	"-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+	"http://java.sun.com/dtd/application_1_3.dtd">
+<application>
+  <display-name>tarea3-ear</display-name>
+  <description>Encapsulado de la aplicación completa</description>
+  <module>
+    <ejb>tarea3-ejb-1.0-SNAPSHOT.jar</ejb>
+  </module>
+  <module>
+    <web>
+      <web-uri>tarea3-war-1.0-SNAPSHOT.war</web-uri>
+      <context-root>/tarea3-war</context-root>
+    </web>
+  </module>
+</application>

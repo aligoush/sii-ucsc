@@ -1,0 +1,208 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="title">Editar perfil</ui:define>
+    <ui:define name="content">
+    
+  
+    
+   <div class="container-fluid">
+     <h3 class="text-dark mb-4">Perfil</h3>
+     <div class="row mb-3">
+       <div class="col-lg-4">
+         <div class="caja-derecha-organizacion">
+                    
+          <!-- FOTO -->
+                    
+             <div class="card mb-3" style="height: 332px;">
+                 <div class="card-body text-center shadow" style="height:295px; margin-bottom: 10px; margin-top: 10px;">
+                   <h:graphicImage library="images" name="usuario.jpg" style="width:200px; margin-top:10px; margin-bottom:15px"/>
+                       	<h:form>
+                           <div class="mb-3">
+                              <h:commandButton value="Editar foto" action="#{usuarioController.doCrearUsuario}" styleClass="btn btn-primary" /> 
+                           </div>
+                         </h:form>
+                    </div>
+              </div>
+                        
+               <!-- DISPONIBILIDAD -->
+                        
+                        
+              <div class="card shadow mb-4" style="top:4px; height: 352px; top:8px">
+                 <div class="card-header py-3">
+                    <h6 class="text-primary font-weight-bold m-0">Disponibilidad</h6>
+                 </div>
+                 <div class="card-body" style="padding-bottom:0px;padding-bottom: 30px;">
+                      <label for="city"><strong>Distancia máxima (en KM):</strong></label><h:inputText style="margin-left:5px;" value="#{usuarioController.usuario.distanciaMax}" />
+                 </div> 
+                 <div class="card-body" style="padding-top: 10px;"><label for="time"><strong>Horario</strong></label><br></br>
+                      <h:form>
+                          <h:selectOneRadio value = "#{usuarioController.usuario.disponibilidad}">
+									<f:selectItem itemLabel="Mañana" itemValue="M" />
+                          </h:selectOneRadio>
+                          <h:selectOneRadio value = "#{usuarioController.usuario.disponibilidad}">
+									<f:selectItem itemLabel="Tarde" itemValue="T" />
+                      	  </h:selectOneRadio>
+                      	  <h:selectOneRadio value = "#{usuarioController.usuario.disponibilidad}">
+									<f:selectItem itemLabel="Mañana y tarde" itemValue="MT" />
+                      	  </h:selectOneRadio>
+                      			  
+                          <h:commandButton value="Guardar Cambios" action="#{usuarioController.doCrearUsuario}" styleClass="btn btn-primary" />      
+                 	 </h:form>
+                  </div>
+             </div>
+                        
+           <!-- TITULACION -->
+                        
+            <div class="card shadow mb-4" style="margin-bottom: 20px; height:157px;top:7px; ">
+               <div class="card-header py-3">
+                   <h6 class="text-primary font-weight-bold m-0">Titulación(es)</h6>
+               </div>
+               <div class="card-body">
+                  <h:form>
+                    <div class="form-group" style="margin-top: 6px;"><label for="city"><strong>Titulaciones:</strong></label>
+                       <h:selectOneMenu  style="margin-left:5px;"  value="#{User.matriculas}">                           			  
+                   		 <f:selectItem itemValue=" Industrial" itemLabel="Ingenieria Industrial"/>
+                     	 <f:selectItem itemValue=" Electrica" itemLabel="Ingenieria Electrica"/>
+                         <f:selectItem itemValue=" Mecatronica" itemLabel="Ingenieria Mecatronica"/>
+                    	 <f:selectItem itemValue=" Robotica" itemLabel="Ingenieria Robotica"/>
+                         <f:selectItem itemValue=" Informática" itemLabel="Ingenieria Informática"/>
+                       </h:selectOneMenu>  
+                 	   <h:commandButton value="Añadir" action="#{usuarioController.doCrearUsuario}" styleClass="btn btn-primary" style="margin-left:8px; height:36px;"/>      
+                 	</div>
+                  </h:form>
+                </div>
+            </div>
+       </div>               
+                                        
+    </div> <!-- col 4 -->
+                
+    <div class="col-lg-8">       
+       <div class="row">
+            <div class="col">
+                 <div class="card shadow mb-3" style="margin-bottom: 20px;">   
+                            
+                    <!-- CONFI USUARIO -->                 
+                      
+                      <div class="card-header py-3">
+                          <p class="text-primary m-0 font-weight-bold">Configuración del usuario</p>
+                      </div>
+                      <div class="card-body">
+                          <h:form>
+                                 <div class="form-row">
+                                     <div class="col">
+                                         <div class="form-group"><label for="username"><strong>NIF</strong></label>
+                                      		 <h:inputText  class="form-control" id="dni" value="#{usuarioController.usuario.dni}" required="true"  a:placeholder="nif" />
+                                          </div>
+                                      </div>
+                                       <div class="col">
+                                           <div class="form-group"><label for="email"><strong>Correo electrónico</strong></label>
+                                               <h:inputText  class="form-control" id="email" value="#{usuarioController.usuario.email}" required="true" a:placeholder="user@example.com" />
+                                           </div>
+                                       </div>
+                                 </div>
+                                 <div class="form-row">
+                                      <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>Nombre</strong></label>
+                                            <h:inputText class="form-control" id="nombre" value="#{usuarioController.usuario.nombre}" required="true" a:placeholder="name"/>
+                                        </div>
+                                     </div>
+                                     <div class="col">
+                                         <div class="form-group"><label for="first_name"><strong>Primer apellido</strong></label>
+                                            <h:inputText class="form-control" id="apellido1"  value="#{usuarioController.usuario.apellido1}" required="true" a:placeholder="first name" />
+                                         </div>
+                                     </div>
+                                     <div class="col">
+                                         <div class="form-group"><label for="last_name"><strong>Segundo apellido</strong></label>
+                                            <h:inputText  class="form-control" id="apellido2"  value="#{usuarioController.usuario.apellido2}" required="true"   a:placeholder="second name" />
+                                         </div>
+                                     </div>
+                                  </div>
+                                  <div class="form-row">
+                                     <div class="col">
+                                         <div class="form-group"><label for="Estudios"><strong>Logros académicos</strong></label>
+                                            <h:inputTextarea  class="form-control" id="descripcion"  value="#{usuarioController.usuario.descripcion}" />
+                                        </div>
+									 </div>
+                                   </div>
+                                   <div class="form-row">
+                                       <div class="col">
+                                          <div class="form-group"><label for="first_name"><strong>Contraseña</strong></label>
+                                             <h:inputSecret class="form-control" id="contrasena1" value="#{usuarioController.usuario.contrasena}" required="false"  a:placeholder="new password" />
+                                          </div>
+                                       </div>
+                                       <div class="col">
+                                           <div class="form-group"><label for="first_name"><strong>Validar contraseña</strong></label>
+                                              <h:inputSecret  class="form-control" id="contrasena2" value="#{usuarioController.validacionContrasena}" required="false" a:placeholder="repeat password"/>
+                                          </div>
+                                      </div>
+                                   </div>
+                                    <div class="form-group">
+                                     	 <h:commandButton value="Guardar Cambios" action="#{usuarioController.doCrearUsuario}" styleClass="btn btn-primary" />      
+								    </div>
+                               </h:form>
+                            </div>
+                        </div>
+                            
+                            <!-- DATOS CONTACTO -->
+                            <div class= "card shadow" style="height:342px; top:7px;">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 font-weight-bold">Datos de contacto</p>
+                                </div>
+                                <div class="card-body">
+                                    <h:form>
+                                        <div class="form-group"><label for="address"><strong>Dirección</strong></label>
+                                             <h:inputText class="form-control" type="text" value="#{usuarioController.usuario.direccion}" required="true" a:placeholder="38,Sunset Blvd"/>
+                                       </div>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <div class="form-group"><label for="city"><strong>Teléfono</strong></label>
+                                                   <h:inputText class="form-control"  id="telefono" value="#{usuarioController.usuario.telefono}" required="true" a:placeholder="phone number"/>
+                                                </div>
+                                            </div>
+                                        </div>
+ 										<div class="form-group">
+                                     	   <h:commandButton value="Guardar Cambios" action="#{usuarioController.doCrearUsuario}" styleClass="btn btn-primary" />  
+									   </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+             </div>
+           </div>
+            
+            
+            <!-- NOTIFICACIONES -->
+             <div class="card shadow mb-4" >
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 font-weight-bold">Noticaciones</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h:form>
+                                <div class="form-group"><label for="signature"><strong>Aviso a correo electrónico</strong></label></div>
+                                <div class="form-group">
+                                
+                                    <div class="custom-control custom-switch">
+                                    	 <h:inputHidden class=" custom-control-input" type="checkbox" id="formCheck-1"/> 
+                                  		 <label class="custom-control-label" for="formCheck-1"><strong>Enviar correo electrónico por cada nueva notificación</strong></label>
+                                    </div>
+                                </div>
+                                <h:commandButton value="Guardar Cambios" action="#{usuarioController.doCrearUsuario}" styleClass="btn btn-primary" />
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+       </div> <!-- CONTAINERFLUID -->
+   
+    </ui:define>
+</ui:composition>

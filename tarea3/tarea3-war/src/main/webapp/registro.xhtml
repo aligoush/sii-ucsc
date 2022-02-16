@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Inicio de sesión</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+	
+<!-- CSS -->
+	<h:outputStylesheet library="css" name="assets/bootstrap/css/bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="assets/fonts/fontawesome-all.min.css" />
+	<h:outputStylesheet library="css" name="assets/fonts/font-awesome.min.css" />
+	<h:outputStylesheet library="css" name="assets/fonts/fontawesome5-overrides.min.css" />
+	<h:outputStylesheet library="css" name="assets/css/Registration-Form-with-Photo.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" />
+	
+</h:head>
+
+<h:body class="bg-gradient-primary">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-9 col-lg-12 col-xl-10">
+				<div class="card shadow-lg o-hidden border-0 my-5">
+					<div class="card-body p-0">
+						
+						<p:messages showDetail="false"/>
+						
+						<div class="row">
+							<div class="col-lg-6 d-none d-lg-flex">
+									<h:graphicImage library="images" name="logo.png" width="450" height="450"></h:graphicImage>
+							</div>
+							<div class="col-lg-6">
+								<div class="p-5">
+									<div class="text-center">
+										<h4 class="text-dark mb-4">Registro en la aplicación</h4>
+									</div>
+									<p>El autoregistro solo está disponible para usuarios normales (solo para participar en actividades).</p>
+									<p>Si es un profesor o un representante de una organización y desea registrarse en el sistema contacte con nosotros.</p>
+									<h:form id="formularioRegistro">
+										<div class="form-group">
+											<h5>NIF:</h5>
+											<h:inputText id="nif" value="#{registroController.usuario.dni}" styleClass="form-control form-control-user" required="true" />												
+										</div>
+										<div class="form-group">
+											<h5>Nombre:</h5>
+											<h:inputText id="nombre" value="#{registroController.usuario.nombre}" styleClass="form-control form-control-user" required="true" />												
+										</div>
+										<div class="form-group">
+											<h5>Primer apellido:</h5>
+											<h:inputText id="apellido1" value="#{registroController.usuario.apellido1}" styleClass="form-control form-control-user" required="true"/>												
+										</div>
+										<div class="form-group">
+											<h5>Segundo apellido:</h5>
+											<h:inputText id="apellido2" value="#{registroController.usuario.apellido2}" styleClass="form-control form-control-user" />												
+										</div>
+										<div class="form-group">
+											<h5>Email:</h5>
+											<h:inputText id="email" value="#{registroController.usuario.email}" styleClass="form-control form-control-user" required="true" />												
+										</div>
+										<div class="form-group">
+											<h5>Dirección:</h5>
+											<h:inputText id="direccion" value="#{registroController.usuario.direccion}" styleClass="form-control form-control-user" required="true" />												
+										</div>
+										<div class="form-group">
+											<h5>Teléfono:</h5>
+											<h:inputText id="telefono" value="#{registroController.usuario.telefono}" styleClass="form-control form-control-user" required="true" />												
+										</div>
+										<div class="form-group">
+											<h5>Foto de perfil:  (solo se admite formato jpeg)</h5>
+<!-- 											<p:fileUpload id="imagen" value="#{registroController.usuario.imagen}" mode="simple" skinSimple="true" label="Elegir" /> -->
+											<p:fileUpload value="#{registroController.imagenSubida}" mode="simple" label="Elegir" allowTypes="/(\.|\/)(jpe?g)$/" />
+
+										</div>
+										<div class="form-group">
+											<h5>Disponibilidad horaria:</h5>
+											<h:selectOneRadio id="disponibilidad" value="#{registroController.usuario.disponibilidad}" required="true">
+												<f:selectItem itemLabel="Mañana" itemValue="M" />
+												<f:selectItem itemLabel="Tarde" itemValue="T" />
+												<f:selectItem itemLabel="Mañana y tarde" itemValue="MT"/>
+											</h:selectOneRadio>	
+										</div>
+										<div class="form-group">
+											<h5>Contraseña:</h5>
+											<h:inputSecret id="contrasena" value="#{registroController.usuario.contrasena}" styleClass="form-control form-control-user" required="true"/>
+										</div>
+										<div class="form-group">
+											<h5>Repetir contraseña:</h5>
+											<h:inputSecret id="repeticionContrasena" value="#{registroController.repeticionContrasena}" styleClass="form-control form-control-user" required="true"/>
+										</div>
+										<div class="form-group">
+											<h:selectBooleanCheckbox id="notificacionesCorreo" value="#{usuarioController.usuario.notificacionesCorreo}"></h:selectBooleanCheckbox>
+											<label for="notificacionesCorreo">Enviar notificaciones al correo electrónico</label>
+										</div>
+<!-- 										<div class="form-group"> -->
+<!-- 											<p:captcha label="Captcha"/> -->
+<!-- 										</div> -->
+										
+																			
+<!-- 										<div class="form-group"> -->
+<!-- 											<div class="custom-control custom-checkbox small"> -->
+<!-- 												<div class="form-check"> -->
+<!-- 													<input class="form-check-input custom-control-input" -->
+<!-- 														type="checkbox" id="formCheck-1"><label -->
+<!-- 														class="form-check-label custom-control-label" -->
+<!-- 														for="formCheck-1">Recordar contraseña</label></input> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+
+										<h:commandButton value="Registrarse" action="#{registroController.doRegistrarUsuario()}" styleClass="btn btn-primary btn-block text-white btn-user"/>
+
+										<hr></hr>
+									</h:form>
+									
+									<div class="text-center">
+										<h:link outcome="login" value="Ya tengo cuenta" styleClass="small"></h:link>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- JAVASCRIPT -->
+	<h:outputScript library="css" name="assets/js/jquery.min.js" />
+	<h:outputScript library="css" name="assets/bootstrap/js/bootstrap.min.js" />
+	<h:outputScript library="css" name="assets/js/theme.js" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+</h:body>
+
+
+
+
+</html>

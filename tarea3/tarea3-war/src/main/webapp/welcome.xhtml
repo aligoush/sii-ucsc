@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="title">AcciónSocialMed</ui:insert></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+	
+<!-- CSS -->
+	<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+	
+	<h:outputStylesheet library="css" name="assets/bootstrap/css/style.min.css" />
+	<h:outputStylesheet library="css" name="assets/fonts/fontawesome-all.min.css" />
+	<h:outputStylesheet library="css" name="assets/fonts/font-awesome.min.css" />
+	<h:outputStylesheet library="css" name="assets/fonts/fontawesome5-overrides.min.css" />
+	<h:outputStylesheet library="css" name="assets/css/Registration-Form-with-Photo.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" />
+	
+</h:head>
+<h:body class="imagen-fondo">
+	<div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <h:graphicImage library="images" name="logo.png" width="50" height="50"></h:graphicImage>
+                    </div>
+                    <div class="sidebar-brand-text"><span> asociaciones </span></div>
+                </a>
+                <hr class="my-auto "></hr>
+                <div>
+                    <h:graphicImage library="images" name="acoes.png" width="100" ></h:graphicImage>
+                    <hr class="sidebar-divider my-0"></hr>
+                    <h:graphicImage library="images" name="farma.png" width="100" ></h:graphicImage>
+                    <hr class="sidebar-divider my-0"></hr>
+                    <h:graphicImage library="images" name="fe.png" width="100" ></h:graphicImage>
+                    <hr class="sidebar-divider my-0"></hr>
+                    <h:graphicImage library="images" name="fronteras.png" width="100" ></h:graphicImage>
+                    <hr class="sidebar-divider my-0"></hr>
+                    <h:graphicImage library="images" name="medicos.png" width="100" ></h:graphicImage>
+                </div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column imagen-fondo" id="content-wrapper">
+            <div id="content">
+                <nav class="nav navbar-nav ml-auto bg-white ">
+                    <div class="float-right">
+                    <h:form>
+                    	<h:button value="Iniciar sesión" outcome="login.xhtml" styleClass="btn btn-primary"></h:button>
+                        <h:button value="Registrate" outcome="registro.xhtml" styleClass="btn btn-secondary"></h:button>
+                    </h:form>
+                        
+                    </div>
+                </nav>
+                <h:graphicImage class="logo" library="images" name="logo de la app.png"></h:graphicImage>
+                <div class="row">
+                    <div class="jumbotron col-sm-9 ">
+                        <h1>AcciónSocialMed</h1>
+                        <p>Encuentra tus actividades de voluntariado y aprendizaje servicio de tu  facultad .
+                        </p>
+                    </div>
+                    <div class="col-sm-3 ">
+                         <h:form>
+                         <h:button value="Iniciar sesión" outcome="login.xhtml" styleClass="btn btn-primary"></h:button>
+                        <h:button value="Registrate" outcome="registro.xhtml" styleClass="btn btn-secondary"></h:button>
+                        
+                    </h:form>
+                    </div>
+
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © 2020 SII-UCSC</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+	</h:body>
+</html>

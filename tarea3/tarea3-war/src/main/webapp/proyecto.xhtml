@@ -1,0 +1,77 @@
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<f:metadata>
+		<f:viewParam name="id" value="#{proyectoController.id}"
+			required="true" />
+		<f:event type="preRenderView"
+			listener="#{proyectoController.postLoad}" />
+	</f:metadata>
+	<ui:define name="title">Proyecto
+	<h:outputText value="#{proyectoController.proyecto.nombre}"></h:outputText>
+	</ui:define>
+	<ui:define name="content">
+
+		<!-- CONTENIDO DE LA PAGINA -->
+		<h1>
+			Proyecto:
+			<h:outputText value="#{proyectoController.proyecto.nombre}" />
+		</h1>
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h:form>
+					<div class="card">
+						<div class="card-header py-3">
+							<div class="row">
+								<div class="col-md-6">
+									<h6 class="text-primary m-0 font-weight-bold">
+										<h:outputText value="#{proyectoController.proyecto.nombre}" />
+									</h6>
+									<h6 class="text-muted mb-2">
+										<h:outputText
+											value="#{proyectoController.proyecto.organizacion.nombreOrganizacion}" />
+									</h6>
+
+								</div>
+								<div class="col-md-6">
+									<h:graphicImage library="images"
+										name="#{proyectoController.proyecto.imagen}" height="50"
+										width="50" />
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<p class="card-text">
+								<h:outputText value="#{proyectoController.proyecto.descripcion}" />
+							</p>
+							<div class="card shadow mb-5">
+
+								<p class="text-primary m-0 font-weight-bold">Actividades</p>
+								<p:dataScroller
+									value="#{proyectoController.proyecto.actividades}"
+									var="actividades" chunkSize="3">
+									<f:facet name="loader">
+										<p:commandButton type="button" value="Más"
+											icon="pi pi-chevron-circle-down" />
+									</f:facet>
+									<p:outputPanel>
+										<h:panelGrid columns="1" cellpadding="5">
+											<h:outputText value="#{actividades.nombre}"
+												style="font-weight: bold" />
+											<h:outputText value="" />
+											<h:button outcome="actividad.xhtml?idActividad=#{actividades.idActividad}" value="Más información" styleClass="btn btn-primary btn-sm"></h:button>
+										</h:panelGrid>
+									</p:outputPanel>
+								</p:dataScroller>
+							</div>
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

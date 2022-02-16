@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>
+            <c:choose>
+                <c:when test="#{registroController.registroOK}">
+                    Registro con éxito
+                </c:when>
+                <c:otherwise>
+                    Acceso irregular
+                </c:otherwise>
+            </c:choose>
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+        
+        <!-- CSS -->
+		<h:outputStylesheet library="css" name="assets/bootstrap/css/bootstrap.min.css" />
+		<h:outputStylesheet library="css" name="assets/fonts/fontawesome-all.min.css" />
+		<h:outputStylesheet library="css" name="assets/fonts/font-awesome.min.css" />
+		<h:outputStylesheet library="css" name="assets/fonts/fontawesome5-overrides.min.css" />
+		<h:outputStylesheet library="css" name="assets/css/Registration-Form-with-Photo.css" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" />
+        
+    </h:head>
+    <h:body class="bg-gradient-primary">
+    	
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-9 col-lg-12 col-xl-10">
+					<div class="card shadow-lg o-hidden border-0 my-5">
+						<div class="card-body p-0">
+							<div class="row">
+								<div class="col-lg-6 d-none d-lg-flex">
+										<h:graphicImage library="images" name="logo.png" width="450" height="450"></h:graphicImage>
+								</div>
+								<div class="col-lg-6">
+									<div class="p-5">
+										<div class="text-center">
+											<h4 class="text-dark mb-4">
+												<c:choose>
+									                <c:when test="#{registroController.registroOK}">
+									                    Registro con éxito
+									                </c:when>
+									                <c:otherwise>
+									                    Acceso irregular
+									                </c:otherwise>
+									            </c:choose>
+											</h4>
+										</div>
+										<c:choose>
+								            <c:when test="#{registroController.registroOK}">
+								                <div>
+								                    <p>El registro se ha realizado con éxito. Hemos enviado un mensaje de validación a su correo
+								                        electrónico. Compruébelo y pulse el enlace para validar la cuenta de usuario.</p>
+								                    <p><h:link outcome="login.xhtml">Ir a la página de login</h:link></p>
+								                </div>
+								            </c:when>
+								            <c:otherwise>
+								                No tiene autorización para acceder a esta página.
+								            </c:otherwise>
+								        </c:choose>								
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- JAVASCRIPT -->
+		<h:outputScript library="css" name="assets/js/jquery.min.js" />
+		<h:outputScript library="css" name="assets/bootstrap/js/bootstrap.min.js" />
+		<h:outputScript library="css" name="assets/js/theme.js" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+	
+    </h:body>
+</html>
+

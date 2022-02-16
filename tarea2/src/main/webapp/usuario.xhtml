@@ -1,0 +1,205 @@
+
+
+<ui:composition template="/WEB-INF/templates/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui">
+                
+    <f:metadata>
+		    <f:viewParam name="id" value="#{usuarioController.id}" required="true"/>
+		    <f:event type="preRenderView" listener="#{usuarioController.postLoad}" />
+	</f:metadata>          
+                
+    <ui:define name="title">
+    	<h:outputText value="#{usuarioController.usuario.nombre}"></h:outputText>
+		<h:outputText value="&#160;" />
+		<h:outputText value="#{usuarioController.usuario.apellido1}"></h:outputText>
+		<h:outputText value="&#160;" />
+		<h:outputText value="#{usuarioController.usuario.apellido2}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="content"> 
+
+    
+    <style type="text/css">
+	    .logo {
+	        width: 5%
+	    }
+	     
+	    .detail {
+	        width: 95%;
+	        padding-left: 25px;
+	    }
+	     
+	    .detail td {
+	        font-size: 24px;
+	    }
+	     
+	    .ui-datascroller .ui-datascroller-item {
+	        border-bottom: 1px solid #A8A8A8;
+	        padding: 25px 10px;
+	        /* with the exported variables from Nova and Luna Themes*/
+	        border-bottom-color: var(--input-border-color, #A8A8A8);
+	    }
+	</style>
+    
+    	<!-- CONTENIDO DE LA PAGINA -->
+        	
+		<h3 class="text-dark mb-4">
+			<h:outputText value="#{usuarioController.usuario.nombre}"></h:outputText>
+			<h:outputText value="&#160;" />
+			<h:outputText value="#{usuarioController.usuario.apellido1}"></h:outputText>
+			<h:outputText value="&#160;" />
+			<h:outputText value="#{usuarioController.usuario.apellido2}"></h:outputText>
+			<h:outputText value="&#160;"/>
+			
+			<!-- Profesores -->
+				<h:outputText rendered="#{usuarioController.usuario.tipoUsuario == 'PROFESOR'}" value="(Profesor)"></h:outputText>
+			
+			<!-- Administradores -->
+				<h:outputText rendered="#{usuarioController.usuario.tipoUsuario == 'ADMINISTRADOR'}" value="(Administrador)"></h:outputText>
+			
+			<!-- Organizaciones -->
+				<h:outputText rendered="#{usuarioController.usuario.tipoUsuario == 'ORGANIZACION'}" value="(#{usuarioController.usuario.nombreOrganizacion})"></h:outputText>
+				
+			
+		</h3>
+                <div class="row mb-3">
+                    <div class="col-lg-4">
+                        <div class="card mb-3">
+                            <div class="card-body text-center shadow">
+<!--                             	<img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160"> -->
+                            	<h:graphicImage library="images" name="usuario.jpg" width="160" height="160" styleClass="rounded-circle mb-3 mt-4"/>
+                            </div>
+                        </div>
+                        
+                        <h:panelGroup rendered="#{usuarioController.usuario.tipoUsuario == 'NORMAL' or usuarioController.usuario.tipoUsuario == 'PROFESOR'}">
+                        	<div class="card shadow mb-4">
+	                            <div class="card-header py-3">
+	                                <h6 class="text-primary font-weight-bold m-0">Titulación(es)</h6>
+	                            </div>
+	                            <div class="card-body">
+	                            	<ul>
+										<ui:repeat value="#{usuarioController.usuario.matriculas}" var="matricula">
+											<li>
+												<h:outputText value="#{matricula.titulacion.nombre}"/>
+											</li>
+										</ui:repeat>
+									</ul>
+	                            </div>
+	                        </div>
+                        </h:panelGroup>
+                       
+                        
+                        <h:panelGroup rendered="#{usuarioController.usuario.tipoUsuario == 'PROFESOR' or usuarioController.usuario.tipoUsuario == 'NORMAL'}">
+                        	<div class="card shadow mb-4">
+	                            <div class="card-header py-3">
+	                                <h6 class="text-primary font-weight-bold m-0">Disponibilidad</h6>
+	                            </div>
+	                            <div class="card-body">
+	                            	<p>
+	                            		<!-- MAÑANA -->
+		                            		<h:outputText rendered="#{usuarioController.usuario.disponibilidad == 'M'}" value="Por las mañanas"></h:outputText>
+		                            	<!-- TARDE -->
+		                            		<h:outputText rendered="#{usuarioController.usuario.disponibilidad == 'T'}" value="Por las tardes"></h:outputText>
+		                            	<!-- MAÑANA Y TARDE -->
+		                            		<h:outputText rendered="#{usuarioController.usuario.disponibilidad == 'MT'}" value="Mañana y tarde"></h:outputText>
+	                            	</p>
+	                            </div>
+	                        </div>
+                        </h:panelGroup>
+                        
+                        
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col">
+                                
+                                <h:panelGroup rendered="#{usuarioController.usuario.tipoUsuario=='PROFESOR'}">
+	                                <div class="card shadow mb-3">
+	                                    <div class="card-header py-3">
+	                                        <p class="text-primary m-0 font-weight-bold">Logros académicos</p>
+	                                    </div>
+	                                    <div class="card-body">
+											<h:outputText value="#{usuarioController.usuario.descripcion}"></h:outputText>
+	                                    </div>
+	                                </div>
+                                </h:panelGroup>
+                                
+                                
+                                
+                                <div class="card shadow">
+                                    <div class="card-header py-3">
+                                        <p class="text-primary m-0 font-weight-bold">Datos de contacto</p>
+                                    </div>
+                                    <div class="card-body">
+                                    		<p>
+                                    			<STRONG>Correo electrónico:</STRONG>
+                                    			<h:outputText value="&#160;" />
+                                    			<h:outputText value="#{usuarioController.usuario.email}"/>
+                                    		</p>
+                                    		<c:if test="#{controlAutorizacion.usuario.tipoUsuario=='ADMINISTRADOR'}">
+	                                            <p>
+	                                            	<strong>Teléfono:</strong>
+	                                            	<h:outputText value="&#160;" />
+	                                            	<h:outputText value="#{usuarioController.usuario.telefono}"/>
+	                                            </p>
+                                            </c:if>
+                                            <p>
+                                            	<strong><h:outputText value="Teléfono:" rendered="#{usuarioController.usuario.tipoUsuario == 'ORGANIZACION'}"/></strong>
+                                            	<h:outputText value="&#160;" rendered="#{usuarioController.usuario.tipoUsuario == 'ORGANIZACION'}"></h:outputText>
+                                            	<h:outputText value="#{usuarioController.usuario.telefono}" rendered="#{usuarioController.usuario.tipoUsuario == 'ORGANIZACION'}"/>
+                                            </p>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h:panelGroup rendered="#{usuarioController.usuario.tipoUsuario == 'PROFESOR'}">
+                	<div class="card shadow mb-5">
+	                    <div class="card-header py-3">
+	                        <p class="text-primary m-0 font-weight-bold">Actividades realizadas como coordinador</p>
+	                    </div>
+	                    <div class="card-body">
+	                    	
+							<h:form> 
+							    <p:dataScroller value="#{usuarioController.usuario.actividades_coordinadas}" var="actividad_coordinada" chunkSize="3">
+<!-- 							        <f:facet name="header"> -->
+<!-- 							            Organizaciones -->
+<!-- 							        </f:facet> -->
+							        
+							        <f:facet name="loader">
+							            <p:commandButton type="button" value="Más" icon="pi pi-chevron-circle-down"/>
+							        </f:facet>
+							 
+							        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+							            <p:graphicImage library="images" name="usuario.jpg" /> 
+							 
+							            <p:outputPanel>
+							                <h:panelGrid columns="1" cellpadding="5">
+							                    <h:outputText value="#{actividad_coordinada.nombre}" style="font-weight: bold"/>
+							                    
+							                    <h:outputText value="" />
+							                    <h:button outcome="actividad.xhtml?id=#{actividad_coordinada.idActividad}" value="Más información" styleClass="btn btn-primary btn-sm"></h:button>
+							                </h:panelGrid>
+							            </p:outputPanel>
+							        </h:panelGrid>
+							    </p:dataScroller>
+							</h:form>
+	                    </div>
+	                </div>
+                </h:panelGroup>
+                
+                
+
+		
+    </ui:define>
+</ui:composition>
+
+
